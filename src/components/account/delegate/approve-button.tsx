@@ -90,7 +90,7 @@ export const MyApproveButton: React.FC<CexApproveProps> = () => {
     },
   });
 
-  // Handler click: preparamos parámetros y disparamos approveMutation
+  // LLAMADA A LA LOGICA
   const handleApproveClick = async () => {
     if (isSubmitting) return;
 
@@ -112,7 +112,8 @@ export const MyApproveButton: React.FC<CexApproveProps> = () => {
     setIsSubmitting(true);
 
     try {
-      approveMutation.mutateAsync({
+      // IMPORTANTE: await aquí para evitar envíos concurrentes / duplicados
+      await approveMutation.mutateAsync({
         connection,
         ownerPublicKey: publicKey,
         signTransaction: signTransaction,
@@ -126,7 +127,6 @@ export const MyApproveButton: React.FC<CexApproveProps> = () => {
       // 6. Restablece el estado tanto si tiene éxito como si falla
       setIsSubmitting(false);
     }
-
   };
 
   const loading = isAccountsLoading || approveMutation.isPending || isSubmitting;
