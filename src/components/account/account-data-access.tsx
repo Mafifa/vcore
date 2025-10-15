@@ -7,11 +7,12 @@ import {
   SystemProgram,
   TransactionMessage,
   TransactionSignature,
-  VersionedTransaction,
+  VersionedTransaction
 } from '@solana/web3.js'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useSuspenseQuery, useQuery, useQueryClient } from '@tanstack/react-query'
 
-export function useGetBalance({ address }: { address: PublicKey }) {
+
+export function useGetBalance ({ address }: { address: PublicKey }) {
   const { connection } = useConnection()
 
   return useQuery({
@@ -20,7 +21,7 @@ export function useGetBalance({ address }: { address: PublicKey }) {
   })
 }
 
-export function useGetSignatures({ address }: { address: PublicKey }) {
+export function useGetSignatures ({ address }: { address: PublicKey }) {
   const { connection } = useConnection()
 
   return useQuery({
@@ -29,10 +30,10 @@ export function useGetSignatures({ address }: { address: PublicKey }) {
   })
 }
 
-export function useGetTokenAccounts({ address }: { address: PublicKey }) {
+export function useGetTokenAccounts ({ address }: { address: PublicKey }) {
   const { connection } = useConnection()
 
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['get-token-accounts', { endpoint: connection.rpcEndpoint, address }],
     queryFn: async () => {
       const [tokenAccounts, token2022Accounts] = await Promise.all([
@@ -48,7 +49,7 @@ export function useGetTokenAccounts({ address }: { address: PublicKey }) {
   })
 }
 
-export function useTransferSol({ address }: { address: PublicKey }) {
+export function useTransferSol ({ address }: { address: PublicKey }) {
   const { connection } = useConnection()
   // const transactionToast = useTransactionToast()
   const wallet = useWallet()
@@ -102,7 +103,7 @@ export function useTransferSol({ address }: { address: PublicKey }) {
   })
 }
 
-export function useRequestAirdrop({ address }: { address: PublicKey }) {
+export function useRequestAirdrop ({ address }: { address: PublicKey }) {
   const { connection } = useConnection()
   // const transactionToast = useTransactionToast()
   const client = useQueryClient()
@@ -134,7 +135,7 @@ export function useRequestAirdrop({ address }: { address: PublicKey }) {
   })
 }
 
-async function createTransaction({
+async function createTransaction ({
   publicKey,
   destination,
   amount,

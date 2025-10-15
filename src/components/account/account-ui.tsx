@@ -21,7 +21,9 @@ import { AppModal } from '@/components/app-modal'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-export function AccountBalance({ address }: { address: PublicKey }) {
+
+
+export function AccountBalance ({ address }: { address: PublicKey }) {
   const query = useGetBalance({ address })
 
   return (
@@ -31,7 +33,7 @@ export function AccountBalance({ address }: { address: PublicKey }) {
   )
 }
 
-export function AccountChecker() {
+export function AccountChecker () {
   const { publicKey } = useWallet()
   if (!publicKey) {
     return null
@@ -39,7 +41,7 @@ export function AccountChecker() {
   return <AccountBalanceCheck address={publicKey} />
 }
 
-export function AccountBalanceCheck({ address }: { address: PublicKey }) {
+export function AccountBalanceCheck ({ address }: { address: PublicKey }) {
   const { cluster } = useCluster()
   const mutation = useRequestAirdrop({ address })
   const query = useGetBalance({ address })
@@ -63,7 +65,7 @@ export function AccountBalanceCheck({ address }: { address: PublicKey }) {
   return null
 }
 
-export function AccountButtons({ address }: { address: PublicKey }) {
+export function AccountButtons ({ address }: { address: PublicKey }) {
   const { cluster } = useCluster()
   return (
     <div>
@@ -76,7 +78,7 @@ export function AccountButtons({ address }: { address: PublicKey }) {
   )
 }
 
-export function AccountTokens({ address }: { address: PublicKey }) {
+export function AccountTokens ({ address }: { address: PublicKey }) {
   const [showAll, setShowAll] = useState(false)
   const query = useGetTokenAccounts({ address })
   const client = useQueryClient()
@@ -167,7 +169,7 @@ export function AccountTokens({ address }: { address: PublicKey }) {
   )
 }
 
-export function AccountTransactions({ address }: { address: PublicKey }) {
+export function AccountTransactions ({ address }: { address: PublicKey }) {
   const query = useGetSignatures({ address })
   const [showAll, setShowAll] = useState(false)
 
@@ -244,11 +246,11 @@ export function AccountTransactions({ address }: { address: PublicKey }) {
   )
 }
 
-function BalanceSol({ balance }: { balance: number }) {
+function BalanceSol ({ balance }: { balance: number }) {
   return <span>{Math.round((balance / LAMPORTS_PER_SOL) * 100000) / 100000}</span>
 }
 
-function ModalReceive({ address }: { address: PublicKey }) {
+function ModalReceive ({ address }: { address: PublicKey }) {
   return (
     <AppModal title="Receive">
       <p>Receive assets by sending them to your public key:</p>
@@ -257,7 +259,7 @@ function ModalReceive({ address }: { address: PublicKey }) {
   )
 }
 
-function ModalAirdrop({ address }: { address: PublicKey }) {
+function ModalAirdrop ({ address }: { address: PublicKey }) {
   const mutation = useRequestAirdrop({ address })
   const [amount, setAmount] = useState('2')
 
@@ -283,7 +285,7 @@ function ModalAirdrop({ address }: { address: PublicKey }) {
   )
 }
 
-function ModalSend({ address }: { address: PublicKey }) {
+function ModalSend ({ address }: { address: PublicKey }) {
   const wallet = useWallet()
   const mutation = useTransferSol({ address })
   const [destination, setDestination] = useState('')

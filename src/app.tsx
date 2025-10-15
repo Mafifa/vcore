@@ -23,7 +23,7 @@ const routes: RouteObject[] = [
   },
 ]
 
-export function App() {
+export function App () {
   const router = useRoutes(routes)
   return (
     <AppProviders>

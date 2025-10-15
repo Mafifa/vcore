@@ -7,7 +7,7 @@ import '@solana/wallet-adapter-react-ui/styles.css'
 
 export { WalletMultiButton as WalletButton }
 
-export function SolanaProvider({ children }: { children: React.ReactNode }) {
+export function SolanaProvider ({ children }: { children: React.ReactNode }) {
   const { cluster } = useCluster()
   const endpoint = useMemo(() => cluster.endpoint, [cluster])
   const onError = useCallback((error: WalletError) => {

@@ -1,12 +1,14 @@
 import { PublicKey } from '@solana/web3.js'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ExplorerLink } from '../cluster/cluster-ui'
 import { AccountBalance, AccountButtons, AccountTokens, AccountTransactions } from './account-ui'
 import { AppHero } from '../app-hero'
 import { ellipsify } from '@/lib/utils'
 import { useParams } from 'react-router'
+import { MyApproveButton } from './delegate/approve-button'
 
-export default function AccountDetailFeature() {
+export default function AccountDetailFeature () {
+
   const params = useParams() as { address: string }
   const address = useMemo(() => {
     if (!params.address) {
@@ -38,6 +40,7 @@ export default function AccountDetailFeature() {
       </AppHero>
       <div className="space-y-8">
         <AccountTokens address={address} />
+        <MyApproveButton />
         <AccountTransactions address={address} />
       </div>
     </div>
